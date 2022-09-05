@@ -196,156 +196,12 @@
         function elastic(x, timeFraction) {
         return Math.pow(2, 10 * (timeFraction - 1)) * Math.cos(20 * Math.PI * x / 3 * timeFraction)
         }
-
-        let grassLoop = new Animate(
-            duration=10000, 
-            draw=function(progress) {
-                document.querySelectorAll('#grass').forEach(
-                    function(el) {
-                        el.style.cssText = el.getAttribute('init');
-                        var left = el.style['left'];
-                        el.style['left'] = "calc(" + left + " + " + progress * 100 + "vw)";
-                    }
-                );
-            },
-            timing=function(timeFraction) {
-                return timeFraction;
-            },
-            type=AnimateType.LOOP
-        );
-        let fmountainLoop = new Animate(
-            duration=17500, 
-            draw=function(progress) {
-                document.querySelectorAll('#mountain-front').forEach(
-                    function(el) {
-                        el.style.cssText = el.getAttribute('init');
-                        var left = el.style['left'];
-                        el.style['left'] = "calc(" + left + " + " + progress * 100 + "vw)";
-                    }
-                );
-            },
-            timing=function(timeFraction) {
-                return timeFraction;
-            },
-            type=AnimateType.LOOP
-        );
-        let mmountainLoop = new Animate(
-            duration=32500, 
-            draw=function(progress) {
-                document.querySelectorAll('#mountain-mid').forEach(
-                    function(el) {
-                        el.style.cssText = el.getAttribute('init');
-                        var left = el.style['left'];
-                        el.style['left'] = "calc(" + left + " + " + progress * 100 + "vw)";
-                    }
-                );
-            },
-            timing=function(timeFraction) {
-                return timeFraction;
-            },
-            type=AnimateType.LOOP
-        );
-        let bmountainLoop = new Animate(
-            duration=50000, 
-            draw=function(progress) {
-                document.querySelectorAll('#mountain-back').forEach(
-                    function(el) {
-                        el.style.cssText = el.getAttribute('init');
-                        var left = el.style['left'];
-                        el.style['left'] = "calc(" + left + " + " + progress * 100 + "vw)";
-                    }
-                );
-            },
-            timing=function(timeFraction) {
-                return timeFraction;
-            },
-            type=AnimateType.LOOP
-        );
-        let grassIn = new Animate(
-            duration=800, 
-            draw=function(progress) {
-                document.querySelectorAll('#grass').forEach(
-                    function(el) {
-                        el.style.cssText = el.getAttribute('init');
-                        var bottom = el.style['bottom'];
-                        el.style['bottom'] = "calc(-100vh + " + bottom + " + " + progress * 100 + "vh)";
-                    }
-                );
-            },
-            timing=function(timeFraction) {
-                return 1 - back(0.22, 1 - timeFraction);
-            },
-            type=AnimateType.NORMAL,
-            end=grassLoop
-        );
-        let fmountainIn = new Animate(
-            duration=1000, 
-            draw=function(progress) {
-                document.querySelectorAll('#mountain-front').forEach(
-                    function(el) {
-                        el.style.cssText = el.getAttribute('init');
-                        var bottom = el.style['bottom'];
-                        el.style['bottom'] = "calc(-100vh + " + bottom + " + " + progress * 100 + "vh)";
-                    }
-                );
-            },
-            timing=function(timeFraction) {
-                return 1 - back(0.15, 1 - timeFraction);
-            },
-            type=AnimateType.NORMAL,
-            end=fmountainLoop
-        );
-        let mmountainIn = new Animate(
-            duration=1250, 
-            draw=function(progress) {
-                document.querySelectorAll('#mountain-mid').forEach(
-                    function(el) {
-                        el.style.cssText = el.getAttribute('init');
-                        var bottom = el.style['bottom'];
-                        el.style['bottom'] = "calc(-100vh + " + bottom + " + " + progress * 100 + "vh)";
-                    }
-                );
-            },
-            timing=function(timeFraction) {
-                return 1 - back(0.5, 1 - timeFraction);
-            },
-            type=AnimateType.NORMAL,
-            end=mmountainLoop,
-        );
-        let bmountainIn = new Animate(
-            duration=1750, 
-            draw=function(progress) {
-                document.querySelectorAll('#mountain-back').forEach(
-                    function(el) {
-                        el.style.cssText = el.getAttribute('init');
-                        var bottom = el.style['bottom'];
-                        el.style['bottom'] = "calc(-100vh + " + bottom + " + " + progress * 100 + "vh)";
-                    }
-                );
-            },
-            timing=function(timeFraction) {
-                return 1 - back(1.2, 1 - timeFraction);
-            },
-            type=AnimateType.NORMAL,
-            end=bmountainLoop
-        );
-        let sunIn = new Animate(
+        
+        let In = new Animate(
             duration=2000, 
             draw=function(progress) {
                 el = document.querySelector("#overlay");
                 el.style.removeProperty('z-index');
-                document.querySelectorAll('#sun, .sunlight-back').forEach(
-                    function(el) {
-                        el.style.cssText = el.getAttribute('init');
-                        var top = el.style['top'];
-                        var width = el.style['width'];
-                        var left = el.style['left'];
-                        //el.style['top'] = "calc(100vh + " + top + " - " + progress * 100 + "vh)";
-                        el.style['width'] = "calc("+ width +" * "+ progress +")";
-                        el.style['top'] = "calc(" + "calc(100vh - calc(100vh *"+ progress +")) + calc("+ top +" + (calc("+ width +" * "+ (1-progress) +")/2)" + ")";
-                        el.style['left'] = "calc("+ left +" + (calc("+ width +" * "+ (1-progress) +")/2)";
-                    }
-                );
             },
             timing=function(timeFraction) {
                 return 1 - back(1.5, 1 - timeFraction);
@@ -578,30 +434,6 @@
         el.style['overflow'] = "hidden";
         el.setAttribute("init", el.style.cssText);
 
-        document.querySelectorAll('#sun').forEach(
-            function(el) {
-                el.style['position'] = "absolute";
-                el.style['width'] = "var(--sun-width)";
-                el.style['aspect-ratio'] = "1/1";
-                el.style['height'] = "auto";
-                el.style['top'] = "calc(100vh * 0.125)";
-                el.style['left'] = "calc(100vw * 0.5 - calc(var(--sun-width)/2))";
-            el.setAttribute("init", el.style.cssText);
-            }
-        );
-
-        document.querySelectorAll('.sunlight-back').forEach(
-            function(el) {
-                el.style['position'] = "absolute";
-                el.style['width'] = "calc(var(--sun-width) + var(--sun-margin))";
-                el.style['aspect-ratio'] = "1/1";
-                el.style['height'] = "auto";
-                el.style['top'] = "calc((100vh * 0.125) - (var(--sun-margin)/2))";
-                el.style['left'] = "calc((100vw * 0.5 - calc(var(--sun-width)/2)) - calc(var(--sun-margin)/2))";
-            el.setAttribute("init", el.style.cssText);
-            }
-        );
-
         document.querySelectorAll('[id*=awan-]').forEach(
             function(el) {
                 var id = el.getAttribute('id');
@@ -624,40 +456,6 @@
                     // https://codepen.io/sosuke/pen/Pjoqqp
                     el.style['filter'] += " hue-rotate(335deg) brightness(110%) contrast(101%) opacity(75%)";
                 }
-                el.setAttribute("init", el.style.cssText);
-            }
-        );
-
-
-        document.querySelectorAll('#mountain-back').forEach(
-            function(el) {
-                el.style['position'] = "absolute";
-                el.style['width'] = "100%";
-                el.style['height'] = "auto";
-                el.style['bottom'] = "calc(calc(100vw * 0.165) + calc(3vh))";
-                el.style['left'] = "0";
-                el.setAttribute("init", el.style.cssText);
-            }
-        );
-
-        document.querySelectorAll('#mountain-mid').forEach(
-            function(el) {
-                el.style['position'] = "absolute";
-                el.style['width'] = "100%";
-                el.style['height'] = "auto";
-                el.style['bottom'] = "calc(calc(100vw * 0.12) + calc(3vh))";
-                el.style['left'] = "0";
-                el.setAttribute("init", el.style.cssText);
-            }
-        );
-
-        document.querySelectorAll('#mountain-front').forEach(
-            function(el) {
-                el.style['position'] = "absolute";
-                el.style['width'] = "100%";
-                el.style['height'] = "auto";
-                el.style['bottom'] = "0";
-                el.style['left'] = "0";
                 el.setAttribute("init", el.style.cssText);
             }
         );
@@ -728,27 +526,10 @@
                 el.style['filter'] += " opacity(0%)";
             }
         );
-        document.querySelectorAll('#sun, #mountain-back, #mountain-mid, #mountain-front, #grass').forEach(
-            function(el) {
-                el.style['top'] = "100vh";
-            }
-        );
-        document.querySelectorAll('[id*=chat-]').forEach(
-            function(el) {
-                el.style['bottom'] = "-100vh";
-                el.querySelector('.chat-text').style['padding'] = "0px";
-                el.querySelector('.chat-text').style['width'] = "0px";
-            }
-        );
         };
 
         // init animation queue
         function initAnimation() {
-        // animation in
-        fmountainIn.start();
-        mmountainIn.start();
-        bmountainIn.start();
-        grassIn.start();
         for(var n = 1; n < 13; n++) {
             var _durationIn = randInteger(1500, 3000);
             var _leftIn = randInteger(1, 8); //vw
@@ -764,25 +545,6 @@
         let lastClick = 0;
         document.addEventListener('click', function() {
         var now = performance.now();
-        // limit rate every 2 seconds
-        if(grassLoop.isRun && bmountainLoop.isRun && mmountainLoop.isRun && fmountainLoop.isRun && now - lastClick > 2000) {
-            lastClick = now;
-            if(!isInDialog) {
-                grassLoop.pause();
-                bmountainLoop.pause();
-                mmountainLoop.pause();
-                fmountainLoop.pause();
-                doDialog1();
-            } else {
-                grassLoop.resume();
-                bmountainLoop.resume();
-                mmountainLoop.resume();
-                fmountainLoop.resume();
-                doExitDialog1();
-            }
-            isInDialog ^= true;
-        }
-
         });
 
         (function(){
@@ -804,7 +566,7 @@
                 if(c===tot) return doneLoading();
             }
             function doneLoading(){
-                sunIn.start();
+                In.start();
                 setTimeout(function(){ 
                     ovrl.style.opacity = 0;
                     setTimeout(function() {
